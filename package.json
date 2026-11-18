@@ -1,0 +1,13 @@
+{
+  "name": "lavanderia-marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@12.21.0",
+  "scripts": {
+    "dev:api": "pnpm --dir apps/api start:dev",
+    "dev:mobile": "pnpm --dir apps/mobile start",
+    "build:api": "pnpm --dir apps/api build",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down"
+  }
+}
