@@ -1,0 +1,10 @@
+# Local Android Studio emulator: 10.0.2.2 reaches the Windows host.
+# Use together with compose.yaml; the base file retains Expo Go for physical phones.
+services:
+  mobile:
+    command: ["pnpm", "exec", "expo", "start", "--dev-client", "--lan", "--port", "8081"]
+    environment:
+      EXPO_PACKAGER_PROXY_URL: "http://10.0.2.2:8081"
+      EXPO_PUBLIC_API_URL: "http://10.0.2.2:3000"
+      # A PC browser cannot use the Android emulator's special host address.
+      EXPO_PUBLIC_WEB_API_URL: ${EXPO_PUBLIC_WEB_API_URL:-http://localhost:3000}

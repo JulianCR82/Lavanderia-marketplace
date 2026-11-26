@@ -1,0 +1,13 @@
+.git
+**/node_modules
+**/dist
+**/build
+**/coverage
+**/.expo
+**/.env
+**/.env.*
+**/*.log
+**/*.tsbuildinfo
+# CNG outputs and local signing files are not needed by API or Metro images.
+apps/mobile/android
+apps/mobile/ios
