@@ -1,10 +1,11 @@
 # Third-party notices
 
-## Expo skills: adapted design system
+## Expo and EAS skills
 
-`.agents/skills/expo-design-system/` derives from
+The Expo/EAS directories in `.agents/skills/` derive from
 [expo/skills](https://github.com/expo/skills/tree/88d9bd79f3fa8452a778fbac65bae162c0b32ce4),
-with project-specific palette adjustments. The upstream MIT license follows.
+with project-specific palette adjustments in `expo-design-system`.
+The upstream MIT license follows.
 
 The MIT License (MIT)
 

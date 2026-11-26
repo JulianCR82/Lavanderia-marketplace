@@ -18,10 +18,6 @@ artifacts/
 *.hprof
 *.heapdump
 
-# Skills externas reinstalables. Versionar solo reglas propias y diseño adaptado.
-.agents/skills/*
-!.agents/skills/marketplace-*/
-!.agents/skills/expo-design-system/
 
 .env
 .env.*

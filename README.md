@@ -31,12 +31,13 @@ Expo está instalado como plugin personal de Codex con
 estas últimas están en `skills-lock.json`. La adaptación de colores vive en
 `.agents/skills/expo-design-system/SKILL.md`: revisar y conservar ese apartado al
 actualizar o reinstalar las skills, porque el instalador puede reemplazarlo.
-Se versionan las cinco skills propias `marketplace-*` y la adaptación de
-`expo-design-system`. Las demás skills genéricas Expo/EAS se instalan localmente
-y están excluidas mediante `.gitignore`; `skills-lock.json` conserva su procedencia
-y revisión. En un checkout nuevo, preparar esas skills antes de seguir las
-instrucciones especializadas que las referencian. No son dependencias de ejecución
-de la API o del móvil.
+Por decisión del usuario se versionan todas las skills del proyecto en
+`.agents/skills/`, compartidas por Codex y OpenCode: las cinco propias
+`marketplace-*`, el conjunto Expo/EAS y la adaptación de `expo-design-system`.
+`skills-lock.json` conserva la procedencia y revisión de las skills externas;
+su licencia se recoge en `THIRD_PARTY_NOTICES.md`. No son dependencias de
+ejecución de la API o del móvil. La configuración, credenciales y cachés personales
+de cada herramienta permanecen fuera del repositorio.
 La instalación no sustituye los comandos pnpm ni las instrucciones locales de
 SDK, negocio y seguridad.
 El backlog funcional ordenado, con identificadores y criterios de aceptación,
