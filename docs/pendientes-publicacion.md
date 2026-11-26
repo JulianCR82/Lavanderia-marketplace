@@ -49,7 +49,7 @@ Consultar solo los pendientes pertinentes al encargo. Cuando se aborden, contras
 este registro con el backlog, código y políticas oficiales actuales; concretar
 dependencias y criterios, conservar IDs existentes y registrar la evidencia real.
 La autorización actual es guardar pendientes y referencias en skills, no
-implementarlos ahora, pagar membresías ni publicar una aplicación.
+implementarlos ahora, pagar cuotas de programas de desarrollador Apple/Google ni publicar una aplicación.
 
 Fuentes de la revisión del 2026-11-24:
 

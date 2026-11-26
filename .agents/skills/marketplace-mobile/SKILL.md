@@ -13,7 +13,11 @@ Use Expo Router routes in `apps/mobile/src/app`; keep reusable UI and data code 
 
 Treat the API as the authority for permissions, prices, availability, order transitions, and payment confirmation. Clearly label estimated versus final amounts and obtain explicit customer approval for a price difference before initiating final charge. Prevent accidental duplicate submissions, but rely on backend idempotency for financial safety. Never bundle credentials or secrets in `EXPO_PUBLIC_*`.
 
-Client and laundry staff share the mobile app under role-specific access. Hiding a screen or control is not authorization. Do not invent payment, scheduling, delivery-zone, cancellation, or authentication behavior while product decisions are unresolved. The admin web app is a separate application and its framework must be agreed before creation.
+Read `docs/decisiones-modelo-comercial.md` for current account and revenue rules. Customers and laundry workers share the app, with exclusive customer or work accounts. Laundry roles are only `OWNER` and `STAFF`. Accepting an OWNER's STAFF invitation explicitly converts the same customer account to work (`accountKind: LAUNDRY`), preserving email/credentials/history and replacing its sessions. Explain the loss of customer functions and request confirmation. Do not require another account/email, offer a customer/work switch or restore customer functions when memberships are removed. Use `accountKind` as well as platform role; the historical `CUSTOMER` platform role alone does not mean the account can act as a customer. Hiding a screen or control is not authorization.
+
+The platform earns a commission on each service payment received by a laundry, at one global rate configurable only by `PLATFORM_ADMIN`. Laundry memberships are access permissions, not subscriptions. Do not add membership checkout, recurring laundry fees, a fixed 10% rate or another commission on a later settlement/withdrawal of the same proceeds. Future financial views must use server-calculated amounts and the rate applied to the payment. Commission/payment functionality remains pending in its stories.
+
+Do not invent payment, scheduling, delivery-zone, cancellation, or authentication behavior while product decisions are unresolved. The admin web app is a separate application and its framework must be agreed before creation.
 
 For mobile changes, run the project’s relevant lint and TypeScript checks and inspect affected flows on available Android/iOS targets. Do not hand-edit generated native directories.
 

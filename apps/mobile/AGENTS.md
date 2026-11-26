@@ -109,4 +109,6 @@ Docs: https://docs.expo.dev/eas/index.md
 ## Roles del marketplace
 
 - Los roles de lavandería son únicamente `OWNER` y `STAFF`, con cuentas individuales. El propietario administra su lavandería e invita al personal como `STAFF`; el staff solo ve las funciones que la API le autorice.
+- Seguir `docs/decisiones-modelo-comercial.md`: aceptar la invitación con confirmación convierte la misma cuenta cliente a trabajo exclusivo (`accountKind: LAUNDRY`), conserva correo/credenciales/historial y revoca sesiones anteriores. No exigir otra cuenta/correo ni ofrecer un selector para volver a cliente; comprobar `accountKind` además del rol de plataforma.
+- La plataforma obtiene una comisión por cada pago de servicio que recibe la lavandería; la tasa global la configura `PLATFORM_ADMIN`. No diseñar cobros de membresía/suscripción ni otra comisión por liquidar o retirar esos mismos fondos. Los vínculos de lavandería solo representan permisos; la implementación financiera sigue pendiente.
 - No implementar interfaces ni lógica para `MANAGER`. No confundir roles de lavandería con `CUSTOMER`/`PLATFORM_ADMIN`; el cliente nunca decide permisos y ocultar controles no sustituye la autorización del backend.

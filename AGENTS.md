@@ -125,8 +125,18 @@ o bloqueadas sin afirmar que pasaron.
   La cuenta creadora recibe `OWNER`; el propietario invita cuentas individuales
   como `STAFF`. No asignar `MANAGER`, no elevar desde el cliente y no confundir
   roles de lavandería con `CUSTOMER`/`PLATFORM_ADMIN`. La migración inicial aún
-  enumera `MANAGER`: conservarla y reconciliar el valor mediante migración nueva
-  cuando se implemente el cambio.
+  enumera `MANAGER`: conservarla; la migración `007_laundry_membership_roles.sql`
+  ya convierte esos vínculos a `STAFF` y deja solo `OWNER`/`STAFF`.
+- Consultar `docs/decisiones-modelo-comercial.md` para cuentas y comisiones.
+  Aceptar una invitación `STAFF` con confirmación convierte la misma cuenta de
+  cliente a trabajo exclusivo, conserva identidad/historial y revoca sesiones;
+  no exige otro correo ni permite alternar cliente/trabajo. La migración 008
+  persiste esta clasificación. El autorregistro `OWNER` sigue pendiente.
+- El ingreso de la plataforma es una comisión por cada pago de un servicio que
+  recibe la lavandería, con una tasa global configurable por `PLATFORM_ADMIN`.
+  No hay cobro de membresía/suscripción comercial; `laundry_memberships` solo
+  representa permisos. No cobrar otra comisión al liquidar, retirar o transferir
+  esos mismos fondos. 10% es ejemplo; implementación financiera aún pendiente.
 - Distinguir clientes, miembros de cada lavandería y administrador de plataforma;
   cualquier acceso entre lavanderías debe estar autorizado explícitamente.
 - No exponer secretos, contenido de `.env` ni credenciales en código, logs o

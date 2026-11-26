@@ -40,16 +40,18 @@
 
 Las cuentas de trabajo ya existentes pueden aceptar un vínculo STAFF adicional; cada lavandería conserva su aislamiento. No se degrada una membresía OWNER ni se otorga administración de plataforma. Revocar staff y administrar permisos de negocio siguen en US-003.02/.03 y sus historias respectivas; registrar nuevas lavanderías sigue en US-002.01. La implementación de invitaciones para los OWNER existentes se autorizó específicamente en esta conversación, sin dar por resuelta esa dependencia de alta.
 
-Contrato, pruebas y aceptación pendiente: [invitaciones y conversión](us-003.01-invitaciones-staff.md).
+Contrato, pruebas y aceptación funcional Android/API confirmada por el usuario: [invitaciones y conversión](us-003.01-invitaciones-staff.md). iOS permanece pendiente.
 
 ## Comisión de plataforma
 
-- El marketplace obtiene ingresos mediante una comisión sobre cada venta de una lavandería a un cliente.
+- El marketplace obtiene ingresos mediante una comisión por cada pago de un servicio que recibe la lavandería. La transacción comisionable corresponde al pago del servicio del cliente, no a una transferencia bancaria ajena a ese servicio.
+- La liquidación, el retiro o una transferencia posterior de esos mismos fondos no genera otra comisión de plataforma. Los reintentos técnicos y eventos duplicados del proveedor tampoco pueden duplicarla. Las reglas de ajustes, reembolsos y contracargos siguen pendientes de definición.
 - Este modelo sustituye el cobro de una membresía o suscripción comercial a las lavanderías. Los vínculos internos de acceso (`laundry_memberships`) solo representan pertenencia y permisos; no son un producto de cobro.
 - La tasa es global para todas las lavanderías y la puede configurar un administrador de plataforma desde el panel administrativo.
 - **10% para la plataforma y 90% para la lavandería es un ejemplo, no una tasa fija aprobada.** El porcentaje vigente debe configurarse antes de procesar pagos reales.
 - La tasa y los importes calculados deben quedar asociados al intento/transacción correspondiente. Un cambio administrativo debe auditar actor y fecha, y no modificar transacciones ya iniciadas.
 - Antes de implementar se deben fijar precisión, redondeo, momento de aplicación y distribución de las tarifas del proveedor, impuestos, reembolsos y contracargos.
+- La configuración/cálculo de comisión y la integración de pagos todavía no están implementadas; corresponden a US-014.05 y US-013. Esta decisión no habilita dinero real.
 
 ## Distribución del pago
 
