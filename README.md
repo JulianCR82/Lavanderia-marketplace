@@ -235,8 +235,12 @@ servicios ni generado builds remotos. Correo/fixtures se pueden probar en Expo G
   La API protege rutas por defecto y verifica acceso por rol/membresía en los
   contratos iniciales. El modelo de lavandería aprobado usa solo `OWNER` y
   `STAFF`: el registro crea al propietario y este invita cuentas individuales
-  de staff. La migración inicial conserva el valor legado `MANAGER`; se
-  eliminará con una migración posterior al implementar el cambio, sin editar
-  una migración aplicada. Faltan permisos y funciones de negocio: catálogo,
+  de staff. La migración inicial conserva el valor legado `MANAGER`; la 007
+  ya convierte esos vínculos a `STAFF` y elimina ese valor del enum vigente,
+  sin editar la inicial. La 008 clasifica las cuentas de trabajo; aceptar una
+  invitación convierte la misma cuenta cliente a trabajo exclusivo, conserva
+  identidad/historial y revoca sesiones anteriores. El autorregistro OWNER sigue
+  pendiente. Ver [modelo comercial y de cuentas](docs/decisiones-modelo-comercial.md).
+  Faltan permisos y funciones de negocio: catálogo,
   comparación, pedidos, entrega en establecimiento/domicilio, pagos y las
   funciones de administración de lavanderías y de plataforma.
