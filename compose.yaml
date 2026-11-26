@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+      - "127.0.0.1:${POSTGRES_PORT:-15432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -19,5 +19,81 @@ services:
       timeout: 5s
       retries: 10
 
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    init: true
+    command: ["pnpm", "dev:api"]
+    environment:
+      NODE_ENV: development
+      PORT: "3000"
+      PGHOST: postgres
+      PGPORT: "5432"
+      PGDATABASE: ${POSTGRES_DB}
+      PGUSER: ${POSTGRES_USER}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGPOOL_MAX: ${PGPOOL_MAX:-10}
+      REGISTRATION_HMAC_KEY: ${REGISTRATION_HMAC_KEY:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      REGISTRATION_FROM_EMAIL: ${REGISTRATION_FROM_EMAIL:-}
+      REGISTRATION_EMAIL_HOURLY_LIMIT: ${REGISTRATION_EMAIL_HOURLY_LIMIT:-5}
+      REGISTRATION_IP_HOURLY_LIMIT: ${REGISTRATION_IP_HOURLY_LIMIT:-30}
+      REGISTRATION_GLOBAL_HOURLY_LIMIT: ${REGISTRATION_GLOBAL_HOURLY_LIMIT:-100}
+      REGISTRATION_GLOBAL_DAILY_LIMIT: ${REGISTRATION_GLOBAL_DAILY_LIMIT:-100}
+      REGISTRATION_REQUEST_IP_HOURLY_LIMIT: ${REGISTRATION_REQUEST_IP_HOURLY_LIMIT:-120}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
+      GOOGLE_WEB_CLIENT_ID: ${GOOGLE_WEB_CLIENT_ID:-}
+      DEV_SEED_ENABLED: ${DEV_SEED_ENABLED:-false}
+      DEV_SEED_PASSWORD: ${DEV_SEED_PASSWORD:-}
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/api/src
+          target: /workspace/apps/api/src
+          initial_sync: true
+        - action: sync
+          path: ./apps/api/migrations
+          target: /workspace/apps/api/migrations
+          initial_sync: true
+
+  mobile:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    init: true
+    working_dir: /workspace/apps/mobile
+    command: ["pnpm", "exec", "expo", "start", "--lan", "--port", "8081", "--go"]
+    environment:
+      NODE_ENV: development
+      EXPO_PACKAGER_PROXY_URL: "http://${DEV_HOST_IP:?Define DEV_HOST_IP en .env}:8081"
+      EXPO_PUBLIC_API_URL: "http://${DEV_HOST_IP:?Define DEV_HOST_IP en .env}:3000"
+      EXPO_PUBLIC_APP_ID: ${EXPO_PUBLIC_APP_ID:-com.lavanderia.marketplace.dev}
+      EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID: ${GOOGLE_WEB_CLIENT_ID:-}
+      EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID: ${EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID:-}
+    ports:
+      - "8081:8081"
+    volumes:
+      # Conserva la sesión local de Expo CLI al reconstruir o recrear mobile.
+      - expo_cli_state:/root/.expo
+    stdin_open: true
+    tty: true
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/mobile/src
+          target: /workspace/apps/mobile/src
+          initial_sync: true
+        - action: sync
+          path: ./apps/mobile/assets
+          target: /workspace/apps/mobile/assets
+          initial_sync: true
+
 volumes:
   postgres_data:
+  expo_cli_state:

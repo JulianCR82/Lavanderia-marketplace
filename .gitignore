@@ -8,6 +8,21 @@ ios/
 *.tsbuildinfo
 *.log
 
+# Capturas, prototipos y evidencias locales; pueden contener datos de pruebas.
+artifacts/
+
+# Paquetes y diagnósticos generados para dispositivos.
+*.apk
+*.aab
+*.ipa
+*.hprof
+*.heapdump
+
+# Skills externas reinstalables. Versionar solo reglas propias y diseño adaptado.
+.agents/skills/*
+!.agents/skills/marketplace-*/
+!.agents/skills/expo-design-system/
+
 .env
 .env.*
 !.env.example
